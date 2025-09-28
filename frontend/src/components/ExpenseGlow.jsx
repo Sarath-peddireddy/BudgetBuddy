@@ -327,7 +327,11 @@ const ExpenseGlow = () => {
         {/* Floating Add Button */}
         <div className="fixed bottom-6 right-6">
           <Button
-            onClick={() => setShowAddForm(true)}
+            onClick={() => {
+              console.log('Add button clicked, current showAddForm:', showAddForm);
+              setShowAddForm(true);
+              console.log('setShowAddForm(true) called');
+            }}
             className="h-14 w-14 rounded-full bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110"
           >
             <Plus className="h-6 w-6" />
