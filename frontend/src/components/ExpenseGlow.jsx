@@ -340,10 +340,30 @@ const ExpenseGlow = () => {
 
         {/* Add Expense Modal */}
         {showAddForm && (
-          <AddExpenseForm 
-            onAdd={addExpense}
-            onClose={() => setShowAddForm(false)}
-          />
+          <div style={{ zIndex: 9999 }}>
+            <AddExpenseForm 
+              onAdd={addExpense}
+              onClose={() => setShowAddForm(false)}
+            />
+          </div>
+        )}
+        
+        {/* Debug: Force show modal for testing */}
+        {process.env.NODE_ENV === 'development' && (
+          <button 
+            onClick={() => setShowAddForm(!showAddForm)}
+            style={{
+              position: 'fixed', 
+              top: '10px', 
+              left: '10px', 
+              zIndex: 10000,
+              background: 'red',
+              color: 'white',
+              padding: '5px'
+            }}
+          >
+            Debug Toggle Modal: {showAddForm.toString()}
+          </button>
         )}
 
         {/* Monthly Limit Modal */}
