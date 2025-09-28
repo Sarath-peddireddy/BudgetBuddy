@@ -107,15 +107,18 @@ user_problem_statement: "Test the enhanced ExpenseGlow frontend application comp
 frontend:
   - task: "Monthly Limit Modal"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/frontend/src/components/MonthlyLimitModal.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "testing"
           comment: "Need to test monthly limit modal functionality - opening modal, setting different limits (₹20,000, ₹10,000, custom amount), and verifying progress bar updates"
+        - working: true
+          agent: "testing"
+          comment: "✅ PASSED: Monthly limit modal works perfectly. Successfully opened modal by clicking 'Limit: ₹15,000' button, tested predefined limit buttons (₹20,000), entered custom amount (₹25,000), clicked Update Limit button, modal closed properly, and limit was updated in main UI to ₹25,000. All functionality working as expected."
 
   - task: "Calendar Navigation"
     implemented: true
