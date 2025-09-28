@@ -46,7 +46,7 @@ const AddExpenseForm = ({ onAdd, onClose }) => {
       
       toast({
         title: "Success!",
-        description: `Added ${formData.name} - $${price.toFixed(2)}
+        description: `Added ${formData.name} - $${price.toFixed(2)}`
       });
       
       setFormData({ name: '', price: '' });
