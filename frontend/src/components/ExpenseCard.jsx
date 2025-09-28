@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
-import { Trash2, Calendar, DollarSign } from 'lucide-react';
+import { Trash2, Calendar, IndianRupee } from 'lucide-react';
 
 const ExpenseCard = ({ expense, onDelete }) => {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -27,7 +27,7 @@ const ExpenseCard = ({ expense, onDelete }) => {
     } else if (date.toDateString() === yesterday.toDateString()) {
       return 'Yesterday';
     } else {
-      return date.toLocaleDateString('en-US', { 
+      return date.toLocaleDateString('en-IN', { 
         month: 'short', 
         day: 'numeric',
         year: date.getFullYear() !== today.getFullYear() ? 'numeric' : undefined
@@ -55,9 +55,9 @@ const ExpenseCard = ({ expense, onDelete }) => {
             
             <div className="flex items-center gap-4 text-sm text-slate-600">
               <div className="flex items-center gap-1">
-                <DollarSign className="h-4 w-4" />
+                <IndianRupee className="h-4 w-4" />
                 <span className="font-medium text-slate-800">
-                  ${expense.price.toFixed(2)}
+                  {expense.price.toLocaleString('en-IN')}
                 </span>
               </div>
               

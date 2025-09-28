@@ -2,9 +2,9 @@ import React, { useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Separator } from './ui/separator';
 import ExpenseCard from './ExpenseCard';
-import { Calendar, TrendingUp, DollarSign } from 'lucide-react';
+import { Calendar, TrendingUp, IndianRupee } from 'lucide-react';
 
-const ExpenseHistory = ({ expenses, onDelete }) => {
+const ExpenseHistory = ({ expenses, onDelete, selectedMonth }) => {
   const groupedExpenses = useMemo(() => {
     const groups = {};
     
@@ -27,25 +27,21 @@ const ExpenseHistory = ({ expenses, onDelete }) => {
   }, [expenses]);
 
   const monthlyStats = useMemo(() => {
-    const stats = {};
+    if (expenses.length === 0) return null;
     
-    expenses.forEach(expense => {
-      const date = new Date(expense.date);
-      const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-      
-      if (!stats[monthKey]) {
-        stats[monthKey] = {
-          month: date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
-          total: 0,
-          count: 0
-        };
-      }
-      
-      stats[monthKey].total += expense.price;
-      stats[monthKey].count += 1;
-    });
+    const totalAmount = expenses.reduce((sum, expense) => sum + expense.price, 0);
+    const averagePerDay = expenses.length > 0 ? totalAmount / new Set(expenses.map(e => e.date)).size : 0;
+    const highestExpense = Math.max(...expenses.map(e => e.price));
+    const lowestExpense = Math.min(...expenses.map(e => e.price));
     
-    return Object.values(stats).sort((a, b) => b.month.localeCompare(a.month));
+    return {
+      total: totalAmount,
+      count: expenses.length,
+      averagePerDay,
+      highest: highestExpense,
+      lowest: lowestExpense,
+      uniqueDays: new Set(expenses.map(e => e.date)).size
+    };
   }, [expenses]);
 
   const formatDate = (dateString) => {
@@ -59,7 +55,7 @@ const ExpenseHistory = ({ expenses, onDelete }) => {
     } else if (date.toDateString() === yesterday.toDateString()) {
       return 'Yesterday';
     } else {
-      return date.toLocaleDateString('en-US', { 
+      return date.toLocaleDateString('en-IN', { 
         weekday: 'long',
         month: 'long', 
         day: 'numeric',
@@ -73,8 +69,12 @@ const ExpenseHistory = ({ expenses, onDelete }) => {
       <Card>
         <CardContent className="p-12 text-center">
           <Calendar className="h-16 w-16 text-slate-300 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-slate-600 mb-2">No Expenses Yet</h3>
-          <p className="text-slate-500">Start adding expenses to see your history here.</p>
+          <h3 className="text-xl font-semibold text-slate-600 mb-2">
+            No Expenses for {selectedMonth}
+          </h3>
+          <p className="text-slate-500">
+            Start adding expenses to see your history here.
+          </p>
         </CardContent>
       </Card>
     );
@@ -82,35 +82,67 @@ const ExpenseHistory = ({ expenses, onDelete }) => {
 
   return (
     <div className="space-y-6">
-      {/* Monthly Summary */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-xl text-slate-700">
-            <TrendingUp className="h-5 w-5" />
-            Monthly Summary
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {monthlyStats.map((stat, index) => (
-              <div 
-                key={index}
-                className="bg-gradient-to-br from-slate-50 to-slate-100 p-4 rounded-lg border"
-              >
-                <p className="text-sm text-slate-600 mb-1">{stat.month}</p>
-                <div className="flex items-center justify-between">
-                  <p className="text-2xl font-bold text-slate-800">
-                    ${stat.total.toLocaleString()}
-                  </p>
-                  <p className="text-sm text-slate-500">
-                    {stat.count} expense{stat.count !== 1 ? 's' : ''}
-                  </p>
-                </div>
+      {/* Monthly Summary Statistics */}
+      {monthlyStats && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-xl text-slate-700">
+              <TrendingUp className="h-5 w-5" />
+              {selectedMonth} Summary
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              <div className="bg-gradient-to-br from-teal-50 to-teal-100 p-4 rounded-lg border border-teal-200">
+                <p className="text-sm text-teal-700 mb-1">Total Spent</p>
+                <p className="text-2xl font-bold text-teal-800 flex items-center gap-1">
+                  <IndianRupee className="h-5 w-5" />
+                  {monthlyStats.total.toLocaleString('en-IN')}
+                </p>
               </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+              
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
+                <p className="text-sm text-blue-700 mb-1">Total Expenses</p>
+                <p className="text-2xl font-bold text-blue-800">
+                  {monthlyStats.count}
+                </p>
+              </div>
+              
+              <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg border border-purple-200">
+                <p className="text-sm text-purple-700 mb-1">Daily Average</p>
+                <p className="text-2xl font-bold text-purple-800 flex items-center gap-1">
+                  <IndianRupee className="h-5 w-5" />
+                  {monthlyStats.averagePerDay.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
+                </p>
+              </div>
+              
+              <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
+                <p className="text-sm text-green-700 mb-1">Active Days</p>
+                <p className="text-2xl font-bold text-green-800">
+                  {monthlyStats.uniqueDays}
+                </p>
+              </div>
+            </div>
+            
+            <div className="mt-4 grid gap-2 md:grid-cols-2">
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-slate-600">Highest Expense:</span>
+                <span className="font-semibold text-slate-800 flex items-center gap-1">
+                  <IndianRupee className="h-4 w-4" />
+                  {monthlyStats.highest.toLocaleString('en-IN')}
+                </span>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-slate-600">Lowest Expense:</span>
+                <span className="font-semibold text-slate-800 flex items-center gap-1">
+                  <IndianRupee className="h-4 w-4" />
+                  {monthlyStats.lowest.toLocaleString('en-IN')}
+                </span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Daily Breakdown */}
       <Card>
@@ -130,9 +162,9 @@ const ExpenseHistory = ({ expenses, onDelete }) => {
                     {formatDate(group.date)}
                   </h3>
                   <div className="flex items-center gap-2 text-slate-600">
-                    <DollarSign className="h-4 w-4" />
+                    <IndianRupee className="h-4 w-4" />
                     <span className="font-medium">
-                      ${group.total.toFixed(2)}
+                      {group.total.toLocaleString('en-IN')}
                     </span>
                     <span className="text-sm text-slate-500">
                       ({group.expenses.length} item{group.expenses.length !== 1 ? 's' : ''})

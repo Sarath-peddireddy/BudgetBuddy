@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
-import { X, Plus } from 'lucide-react';
+import { X, Plus, IndianRupee } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
 
 const AddExpenseForm = ({ onAdd, onClose }) => {
@@ -46,7 +46,7 @@ const AddExpenseForm = ({ onAdd, onClose }) => {
       
       toast({
         title: "Success!",
-        description: `Added ${formData.name} - $${price.toFixed(2)}`
+        description: `Added ${formData.name} - ₹${price.toLocaleString('en-IN')}`
       });
       
       setFormData({ name: '', price: '' });
@@ -94,7 +94,7 @@ const AddExpenseForm = ({ onAdd, onClose }) => {
               <Input
                 id="expense-name"
                 type="text"
-                placeholder="e.g., Lunch at cafe"
+                placeholder="e.g., Lunch at restaurant"
                 value={formData.name}
                 onChange={(e) => handleInputChange('name', e.target.value)}
                 className="w-full"
@@ -104,18 +104,21 @@ const AddExpenseForm = ({ onAdd, onClose }) => {
             
             <div className="space-y-2">
               <Label htmlFor="expense-price" className="text-sm font-medium text-slate-700">
-                Price ($)
+                Price (₹)
               </Label>
-              <Input
-                id="expense-price"
-                type="number"
-                step="0.01"
-                min="0.01"
-                placeholder="0.00"
-                value={formData.price}
-                onChange={(e) => handleInputChange('price', e.target.value)}
-                className="w-full"
-              />
+              <div className="relative">
+                <IndianRupee className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-500" />
+                <Input
+                  id="expense-price"
+                  type="number"
+                  step="0.01"
+                  min="0.01"
+                  placeholder="150.00"
+                  value={formData.price}
+                  onChange={(e) => handleInputChange('price', e.target.value)}
+                  className="pl-10"
+                />
+              </div>
             </div>
             
             <div className="flex gap-3 pt-4">
