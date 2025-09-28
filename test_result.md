@@ -101,3 +101,151 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Test the enhanced ExpenseGlow frontend application comprehensively including new features like Monthly Limit Modal, Calendar Navigation, Currency Display, and existing features like Add Expense Modal, History Tab, Delete Expense functionality."
+
+frontend:
+  - task: "Monthly Limit Modal"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/MonthlyLimitModal.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "testing"
+          comment: "Need to test monthly limit modal functionality - opening modal, setting different limits (₹20,000, ₹10,000, custom amount), and verifying progress bar updates"
+
+  - task: "Calendar Navigation"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/ExpenseGlow.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "testing"
+          comment: "Need to test Previous and Next month navigation buttons for smooth month switching and expense filtering"
+
+  - task: "Currency Display"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/ExpenseGlow.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "testing"
+          comment: "Need to verify all amounts are correctly displayed in Indian Rupees (₹) format throughout the app"
+
+  - task: "Monthly Limit Warnings"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/ExpenseGlow.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "testing"
+          comment: "Need to check if warning notifications appear when approaching/exceeding limits"
+
+  - task: "Add Expense Modal"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/AddExpenseForm.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "testing"
+          comment: "Need to test the floating add button (teal circular button in bottom right) - this was previously broken, verify it now opens the modal"
+
+  - task: "Add New Expense"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/AddExpenseForm.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "testing"
+          comment: "Need to add a test expense (name: 'Test Chai', price: 50) and verify it appears with rupee formatting"
+
+  - task: "History Tab"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/ExpenseHistory.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "testing"
+          comment: "Need to switch to History tab and verify the monthly summary statistics display correctly"
+
+  - task: "Delete Expense"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/ExpenseCard.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "testing"
+          comment: "Need to test deleting an expense using trash icons"
+
+  - task: "Expense Cards"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/ExpenseCard.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "testing"
+          comment: "Need to verify colorful expense cards display properly with rupee amounts"
+
+  - task: "UI/UX Validation"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/ExpenseGlow.jsx"
+    stuck_count: 0
+    priority: "low"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "testing"
+          comment: "Need to check progress bar color changes (green → yellow → red) as limit approaches, verify smooth animations and transitions, test responsive design and hover effects, validate month navigation preserves expense filtering"
+
+metadata:
+  created_by: "testing_agent"
+  version: "1.0"
+  test_sequence: 1
+
+test_plan:
+  current_focus:
+    - "Monthly Limit Modal"
+    - "Calendar Navigation"
+    - "Currency Display"
+    - "Monthly Limit Warnings"
+    - "Add Expense Modal"
+    - "Add New Expense"
+    - "History Tab"
+    - "Delete Expense"
+    - "Expense Cards"
+    - "UI/UX Validation"
+  stuck_tasks: []
+  test_all: true
+  test_priority: "high_first"
+
+agent_communication:
+    - agent: "testing"
+      message: "Starting comprehensive testing of ExpenseGlow frontend application. Will test all priority features including new Monthly Limit Modal, Calendar Navigation, and existing Add Expense functionality that was previously broken."
