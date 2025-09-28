@@ -12,21 +12,21 @@ const generateMockExpenses = () => {
     {
       id: 1,
       name: "Coffee & Pastry",
-      price: 8.50,
+      price: 250,
       date: new Date().toISOString().split('T')[0],
       color: getRandomColor()
     },
     {
       id: 2,
       name: "Lunch at Restaurant",
-      price: 25.00,
+      price: 480,
       date: new Date().toISOString().split('T')[0],
       color: getRandomColor()
     },
     {
       id: 3,
-      name: "Uber Ride",
-      price: 15.75,
+      name: "Auto Rickshaw",
+      price: 120,
       date: new Date().toISOString().split('T')[0],
       color: getRandomColor()
     },
@@ -35,21 +35,21 @@ const generateMockExpenses = () => {
     {
       id: 4,
       name: "Grocery Shopping",
-      price: 89.25,
+      price: 1850,
       date: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().split('T')[0],
       color: getRandomColor()
     },
     {
       id: 5,
       name: "Movie Tickets",
-      price: 24.00,
+      price: 600,
       date: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().split('T')[0],
       color: getRandomColor()
     },
     {
       id: 6,
-      name: "Gas Station",
-      price: 45.00,
+      name: "Petrol Fill-up",
+      price: 2200,
       date: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().split('T')[0],
       color: getRandomColor()
     },
@@ -58,14 +58,14 @@ const generateMockExpenses = () => {
     {
       id: 7,
       name: "Pharmacy",
-      price: 12.99,
+      price: 380,
       date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
       color: getRandomColor()
     },
     {
       id: 8,
-      name: "Online Subscription",
-      price: 9.99,
+      name: "Netflix Subscription",
+      price: 649,
       date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
       color: getRandomColor()
     },
@@ -73,15 +73,15 @@ const generateMockExpenses = () => {
     // A week ago
     {
       id: 9,
-      name: "Books",
-      price: 35.50,
+      name: "Books from Amazon",
+      price: 1200,
       date: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
       color: getRandomColor()
     },
     {
       id: 10,
       name: "Dinner with Friends",
-      price: 67.80,
+      price: 1800,
       date: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
       color: getRandomColor()
     },
@@ -89,15 +89,15 @@ const generateMockExpenses = () => {
     // Two weeks ago
     {
       id: 11,
-      name: "Clothing",
-      price: 125.00,
+      name: "Clothing Shopping",
+      price: 3500,
       date: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
       color: getRandomColor()
     },
     {
       id: 12,
       name: "Internet Bill",
-      price: 79.99,
+      price: 999,
       date: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
       color: getRandomColor()
     }
